@@ -4,8 +4,24 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
+    <%= f.label '性' %><br />
+    <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name" %>
+  </div>
+
+  <div class="field">
+    <%= f.label '名' %><br />
+    <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name" %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label '出勤可能時間' %><br />
+    <%= f.text_field :available_time_start, autofocus: true, autocomplete: "available_time_start" %> 〜
+    <%= f.text_field :available_time_end, autofocus: true, autocomplete: "available_time_end" %>
   </div>
 
   <div class="field">

@@ -1,1 +1,6 @@
-/ h1= "こんにちは、#{ current_user.name }さん"
+- if user_signed_in? && current_user.admin?
+  h1= "ようこそ、管理者(#{current_user.email})さん"
+- elsif user_signed_in?
+  h1= "ようこそ、#{current_user.last_name}さん"
+- else
+  h1 トップページ
