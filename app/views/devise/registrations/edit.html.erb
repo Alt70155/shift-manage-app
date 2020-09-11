@@ -24,6 +24,11 @@
     <%= f.time_field :available_time_end,   autofocus: true, autocomplete: "available_time_end" %>
   </div>
 
+  <div class="field">
+    <%= f.label '週に何回出勤可能か' %><br />
+    <%= f.number_field :available_days, autofocus: true, autocomplete: "available_days", min: 1, max: 5 %>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

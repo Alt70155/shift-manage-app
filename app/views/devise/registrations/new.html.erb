@@ -20,8 +20,13 @@
 
   <div class="field">
     <%= f.label '出勤可能時間' %><br />
-    <%= f.text_field :available_time_start, autofocus: true, autocomplete: "available_time_start" %> 〜
-    <%= f.text_field :available_time_end, autofocus: true, autocomplete: "available_time_end" %>
+    <%= f.time_field :available_time_start, autofocus: true, autocomplete: "available_time_start" %> 〜
+    <%= f.time_field :available_time_end, autofocus: true, autocomplete: "available_time_end" %>
+  </div>
+
+  <div class="field">
+    <%= f.label '週に何回出勤可能か（１〜５日）' %><br />
+    <%= f.number_field :available_days, autofocus: true, autocomplete: "available_days", min: 1, max: 5 %>
   </div>
 
   <div class="field">

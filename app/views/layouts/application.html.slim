@@ -18,10 +18,10 @@ html
   body
     header
       nav
-        a href="/" TOP
+        = link_to 'TOP', root_path
         br
         - if user_signed_in?
-          = link_to 'プロフィール変更', edit_user_registration_path
+          = link_to 'プロフィール確認', profile_path
           br
           = link_to 'ログアウト', destroy_user_session_path, method: :delete
         - else

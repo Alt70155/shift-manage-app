@@ -1,0 +1,8 @@
+h1 基本情報
+
+p= "性：#{current_user.last_name}"
+p= "名：#{current_user.first_name}"
+p= "出勤可能時間：#{current_user.available_time_start} 〜 #{current_user.available_time_end}"
+p= "出勤可能日数：週に#{current_user.available_days}日"
+
+= link_to '基本情報を変更する', edit_user_registration_path
