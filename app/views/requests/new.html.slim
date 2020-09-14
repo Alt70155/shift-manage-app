@@ -1,0 +1,22 @@
+h1 シフト希望
+
+p
+  | 来月のシフト希望を入力してください。
+  br
+  | 出勤できない日は出勤不可、出勤日に希望がある場合は出勤可にチェックを入れてください。
+  br
+  | 何も希望がない場合はプロフィール情報を元にシフトが決まります。
+
+= form_with model: @request, url: requests_path, local: true do |f|
+  .form-group
+    = f.label :date, '日付を選択してください'
+    br
+    = f.text_field :date, class: 'form-control', id: 'request_date'
+  .form-group
+    = f.radio_button :possible, true, checked: 'checked'
+    = f.label :possible, '出勤可'
+    br
+    = f.radio_button :possible, false
+    = f.label :possible, '出勤不可'
+  br
+  = f.submit '送信', class: 'btn btn-primary ml-4'

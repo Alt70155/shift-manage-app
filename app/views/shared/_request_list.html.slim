@@ -1,0 +1,4 @@
+h2 来月のシフト希望一覧
+ul
+  - request_list.each do |rq|
+    li= "#{rq.date}：#{rq.possible ? '○' : '×'}"

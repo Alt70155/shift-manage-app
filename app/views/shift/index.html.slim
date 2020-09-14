@@ -1,6 +1,13 @@
 - if user_signed_in? && current_user.admin?
-  h1= "ようこそ、管理者(#{current_user.email})さん"
+  / 管理者ページ
+  h1= "ようこそ、【管理者】#{current_user.last_name}#{current_user.first_name}さん"
+  = render 'shared/request_list', request_list: @request_list
+
+  = link_to '店舗情報', stores_show_path
+  br
 - elsif user_signed_in?
+  / 一般ページ
   h1= "ようこそ、#{current_user.last_name}さん"
+  = render 'shared/request_list', request_list: @request_list
 - else
   h1 トップページ

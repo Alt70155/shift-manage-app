@@ -21,7 +21,9 @@ html
         = link_to 'TOP', root_path
         br
         - if user_signed_in?
-          = link_to 'プロフィール確認', profile_path
+          = link_to 'プロフィール', profile_path
+          br
+          = link_to 'シフト希望', requests_new_path
           br
           = link_to 'ログアウト', destroy_user_session_path, method: :delete
         - else
@@ -38,7 +40,7 @@ html
       var thisMonth = d.getMonth() + 1
   
       $(function () {
-        $('#id_date').datepicker({
+        $('#request_date').datepicker({
           dateFormat: 'yy-mm-dd',
           minDate: new Date(thisYear, thisMonth, 1),
           maxDate: new Date(thisYear, thisMonth + 1, 0) //　ゼロで月末日が取得できる
