@@ -1,5 +1,7 @@
 h1 基本情報
 
+- if current_user.admin?
+  p 管理者
 p= "性：#{current_user.last_name}"
 p= "名：#{current_user.first_name}"
 p= "出勤可能時間：#{l current_user.available_time_start, format: :short} 〜 #{l current_user.available_time_end, format: :short}"

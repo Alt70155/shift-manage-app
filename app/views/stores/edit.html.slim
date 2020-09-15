@@ -1,2 +1,52 @@
-h1 Stores#edit
-p Find me in app/views/stores/edit.html.slim
+h1 店舗情報の登録
+
+= form_with model: @store, url: stores_update_path, local: true do |f|
+  .form-group
+    = f.label :emp_per_day_number, '一日の店舗稼働に必要な従業員数'
+    br
+    = f.number_field :emp_per_day_number, class: 'form-control'
+  .form-group
+    = f.label :business_start_time, '一日の営業時間'
+    br
+    = f.time_field :business_start_time, class: 'form-control', id: 'business_start_time'
+    |  〜 
+    = f.time_field :business_end_time, class: 'form-control', id: 'business_end_time'
+  .form-group
+    span 定休日
+    br
+    = f.radio_button :regular_holiday, 0, checked: 'checked'
+    = f.label :regular_holiday, '日曜日'
+    br
+    = f.radio_button :regular_holiday, 1
+    = f.label :regular_holiday, '月曜日'
+    br
+    = f.radio_button :regular_holiday, 2
+    = f.label :regular_holiday, '火曜日'
+    br
+    = f.radio_button :regular_holiday, 3
+    = f.label :regular_holiday, '水曜日'
+    br
+    = f.radio_button :regular_holiday, 4
+    = f.label :regular_holiday, '木曜日'
+    br
+    = f.radio_button :regular_holiday, 5
+    = f.label :regular_holiday, '金曜日'
+    br
+    = f.radio_button :regular_holiday, 6
+    = f.label :regular_holiday, '土曜日'
+    br
+    = f.radio_button :regular_holiday, 7
+    = f.label :regular_holiday, 'なし'
+  = f.submit '送信', class: 'btn btn-primary ml-4'
+
+javascript:
+  //Library jquery-timepicker
+  $('#business_start_time').timepicker({
+    'timeFormat': 'H:i',
+    'step': 30,
+  });
+
+  $('#business_end_time').timepicker({
+    'timeFormat': 'H:i',
+    'step': 30,
+  });

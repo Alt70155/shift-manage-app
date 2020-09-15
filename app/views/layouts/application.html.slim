@@ -46,18 +46,3 @@ html
           maxDate: new Date(thisYear, thisMonth + 1, 0) //　ゼロで月末日が取得できる
         });
       });
-
-      //Library jquery-timepicker
-      $('#user_available_time_start').timepicker({
-        'timeFormat': 'H:i',
-        'minTime': '8:00',
-        'maxTime': '23:30',
-        'step': 30,
-      });
-
-      $('#user_available_time_end').timepicker({
-        'timeFormat': 'H:i',
-        'minTime': '9:00',
-        'maxTime': '23:30',
-        'step': 30,
-      });

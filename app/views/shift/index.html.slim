@@ -3,7 +3,10 @@
   h1= "ようこそ、【管理者】#{current_user.last_name}#{current_user.first_name}さん"
   = render 'shared/request_list', request_list: @request_list
 
-  = link_to '店舗情報', stores_show_path
+  - if current_user.store.nil?
+    = link_to '店舗情報登録', stores_new_path
+  - else
+    = link_to '店舗情報',    stores_show_path
   br
 - elsif user_signed_in?
   / 一般ページ

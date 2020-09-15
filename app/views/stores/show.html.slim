@@ -1,1 +1,13 @@
-= link_to '店舗情報を変更する'
+h1 店舗情報
+
+ul
+  li= "一日の店舗稼働に必要な従業員数：#{@store.emp_per_day_number}人"
+  li= "一日の営業時間：#{l @store.business_start_time, format: :short} 〜 #{l @store.business_end_time, format: :short}"
+  - if @store.regular_holiday == 7
+    li= "定休日：なし"
+  - else
+    li= "定休日：#{%w(日 月 火 水 木 金 土)[@store.regular_holiday]}曜日"
+
+
+= link_to '店舗情報を変更する', stores_edit_path
+br

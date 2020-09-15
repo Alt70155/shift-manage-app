@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   get 'stores/show'
   get 'stores/new'
   get 'stores/edit'
-  get 'stores/create'
-  get 'stores/update'
+  post 'stores/create'
+  patch 'stores/update'
+
   devise_for :users
   root 'shift#index'
   get 'profile', to: 'shift#profile'
