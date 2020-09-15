@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/faker-ruby/faker.git
+  revision: fd90b99e2a8249ff84a1b2528a09674d428e208f
+  branch: master
+  specs:
+    faker (2.13.0)
+      i18n (>= 1.6, < 2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -231,6 +239,7 @@ DEPENDENCIES
   devise
   devise-i18n
   devise-i18n-views
+  faker!
   html2slim
   jbuilder (~> 2.7)
   listen (~> 3.2)
