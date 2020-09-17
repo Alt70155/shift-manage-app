@@ -1,0 +1,13 @@
+h2 従業員一覧
+table border="1"
+  tr
+    th
+    th 名前
+    th 出勤可能時間
+    th 出勤可能日数
+  - @user_list.each_with_index do |user, i|
+    tr
+      td= i + 1
+      td= "#{user.last_name} #{user.first_name}"
+      td= "#{l user.available_time_start, format: :short} 〜 #{l user.available_time_end, format: :short}"
+      td= "週に#{user.available_days}日"

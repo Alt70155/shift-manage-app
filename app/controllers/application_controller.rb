@@ -18,4 +18,11 @@ class ApplicationController < ActionController::Base
         redirect_to login_url
       end
     end
+
+    def logged_in_admin
+      unless user_signed_in? && current_user.admin?
+        flash[:danger] = '管理者のみアクセスできるページです。'
+        redirect_to root_url
+      end
+    end
 end

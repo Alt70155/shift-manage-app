@@ -42,13 +42,6 @@ class StoresController < ApplicationController
 
   private
 
-    def logged_in_admin
-      unless current_user.admin?
-        flash[:danger] = '管理者のみアクセスできるページです。'
-        redirect_to root_url
-      end
-    end
-
     def store_params
       params.require(:store).permit(:emp_per_day_number, :business_start_time, :business_end_time, :regular_holiday)
     end
