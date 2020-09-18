@@ -24,6 +24,7 @@ class StoresController < ApplicationController
     @store = current_user.build_store(store_params)
 
     if @store.save
+      flash[:notice] = '店舗情報を登録しました。'
       redirect_to root_url
     else
       render :new
