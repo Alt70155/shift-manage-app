@@ -10,6 +10,7 @@ class RequestsController < ApplicationController
     @request = current_user.requests.new(request_params)
 
     if @request.save
+      flash[:notice] = 'シフト希望を登録しました。'
       redirect_to root_url
     else
       render :new

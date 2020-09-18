@@ -3,7 +3,7 @@ class ShiftController < ApplicationController
   before_action :logged_in_admin, only: %i[users]
 
   def index
-    @request_list = current_user.requests.all if user_signed_in?
+    @request_list = current_user.requests.all.order(:date) if user_signed_in?
     @user_list = User.all
   end
 

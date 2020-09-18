@@ -1,0 +1,7 @@
+- if object.errors.any?
+  #error_explanation
+    .alert.alert-danger
+      = "#{object.errors.count}つのエラーがあります。"
+    ul
+      - object.errors.full_messages.each do |msg|
+        li.text-danger= msg

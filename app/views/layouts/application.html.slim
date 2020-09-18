@@ -16,23 +16,44 @@ html
     link[rel="stylesheet" href="https://cdn.rawgit.com/jonthornton/jquery-timepicker/3e0b283a/jquery.timepicker.min.css"]
     script[src="https://cdn.rawgit.com/jonthornton/jquery-timepicker/3e0b283a/jquery.timepicker.min.js"]
   body
-    header
-      nav
-        = link_to 'TOP', root_path
-        br
+    .app-title.navbar.navbar-expand-md.navbar-light.bg-light
+      .navbar-brand= link_to 'シフト生成アプリ', root_path, class: 'nav-link'
+
+      ul.navbar-nav.ml-auto
         - if user_signed_in?
-          = link_to 'プロフィール', profile_path
-          br
-          = link_to 'シフト希望', requests_new_path
-          br
-          = link_to 'ログアウト', destroy_user_session_path, method: :delete
+          li.nav-item= link_to '基本情報', profile_path, class: 'nav-link'
+          li.nav-item= link_to 'シフト希望', requests_new_path, class: 'nav-link'
+          - if current_user.admin?
+            - if current_user.store.nil?
+              li.nav-item= link_to '店舗情報登録', stores_new_path, class: 'nav-link'
+            - else
+              li.nav-item= link_to '店舗情報', stores_show_path, class: 'nav-link'
+            br
+            = link_to '従業員一覧', users_path, class: 'nav-link'
+          li.nav-item= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link'
         - else
-          = link_to 'サインアップ', new_user_registration_path
-          br
-          = link_to 'ログイン', new_user_session_path
-    p.notice= notice
-    p.alert= alert
-    = yield
+          li.nav-item= link_to 'アカウント作成', new_user_registration_path, class: 'nav-link'
+          li.nav-item= link_to 'ログイン', new_user_session_path, class: 'nav-link'
+    .container.my-3
+      - if flash.notice.present?
+        .alert.alert-success= flash.notice
+      = yield
+    / header
+    /   nav
+    /     = link_to 'TOP', root_path
+    /     
+    /     - if user_signed_in?
+    /       = link_to 'プロフィール', profile_path
+    /       br
+    /       = link_to 'シフト希望', requests_new_path
+    /       br
+    /       = link_to 'ログアウト', destroy_user_session_path, method: :delete
+    /     - else
+    /       = link_to 'サインアップ', new_user_registration_path
+    /       br
+    /       = link_to 'ログイン', new_user_session_path
+    / p.notice= notice
+    / p.alert= alert
     
     javascript:
       var d = new Date()

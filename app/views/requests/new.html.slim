@@ -8,15 +8,16 @@ p
   | 何も希望がない場合はプロフィール情報を元にシフトが決まります。
 
 = form_with model: @request, url: requests_path, local: true do |f|
+  = render 'shared/error_messages', object: f.object
   .form-group
     = f.label :date, '日付を選択してください'
     br
-    = f.text_field :date, class: 'form-control', id: 'request_date'
+    = f.text_field :date, class: 'form-control', id: 'request_date', readonly: true
   .form-group
-    = f.radio_button :possible, true, checked: 'checked'
-    = f.label :possible, '出勤可'
+    = f.radio_button :possible, true, checked: true
+    = f.label :possible, '出勤可', value: true
     br
     = f.radio_button :possible, false
-    = f.label :possible, '出勤不可'
+    = f.label :possible, '出勤不可', value: false
   br
   = f.submit '送信', class: 'btn btn-primary ml-4'

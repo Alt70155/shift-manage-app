@@ -1,6 +1,7 @@
 h1 店舗情報の登録
 
 = form_with model: @store, url: stores_create_path, local: true do |f|
+  = render 'shared/error_messages', object: f.object
   .form-group
     = f.label :emp_per_day_number, '一日の店舗稼働に必要な従業員数'
     br
