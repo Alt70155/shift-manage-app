@@ -32,29 +32,13 @@ html
             = link_to '従業員一覧', users_path, class: 'nav-link'
           li.nav-item= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link'
         - else
-          li.nav-item= link_to 'アカウント作成', new_user_registration_path, class: 'nav-link'
-          li.nav-item= link_to 'ログイン', new_user_session_path, class: 'nav-link'
+          / li.nav-item= link_to 'アカウント作成', new_user_registration_path, class: 'nav-link'
+          / li.nav-item= link_to 'ログイン', new_user_session_path, class: 'nav-link'
     .container.my-3
       - if flash.notice.present?
         .alert.alert-success= flash.notice
       = yield
-    / header
-    /   nav
-    /     = link_to 'TOP', root_path
-    /     
-    /     - if user_signed_in?
-    /       = link_to 'プロフィール', profile_path
-    /       br
-    /       = link_to 'シフト希望', requests_new_path
-    /       br
-    /       = link_to 'ログアウト', destroy_user_session_path, method: :delete
-    /     - else
-    /       = link_to 'サインアップ', new_user_registration_path
-    /       br
-    /       = link_to 'ログイン', new_user_session_path
-    / p.notice= notice
-    / p.alert= alert
-    
+
     javascript:
       var d = new Date()
       var thisYear  = d.getFullYear()

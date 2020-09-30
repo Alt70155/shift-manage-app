@@ -1,4 +1,6 @@
 class RequestsController < ApplicationController
+  before_action :logged_in_user
+
   def new
     @request = Request.new
   end

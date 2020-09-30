@@ -5,8 +5,19 @@ Rails.application.routes.draw do
   post 'stores/create'
   patch 'stores/update'
 
-  devise_for :users
-  root 'shift#index'
+  # devise_for :users
+  # 上書きが必要なコントローラだけルーティング設定を行う（おそらく
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
+  # 以下の設定でrootをログイン画面にする
+  # unauthenticated do
+  #   as :user do
+  #     root to: 'devise/sessions#new'
+  #   end
+  # end
+  root to: 'shift#index'
+
   get 'profile', to: 'shift#profile'
   get 'users', to: 'shift#users'
   get 'requests/new', to: 'requests#new'
