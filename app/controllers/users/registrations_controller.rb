@@ -6,6 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_account_update_params, only: [:update]
   # 以下でdeviseの設定を上書きし、ログイン状態でもサインイン・アップできるようにする
   prepend_before_action :require_no_authentication, only: [:cancel]
+  prepend_before_action :authenticate_scope!, only: [:update, :destroy]
 
   # GET /resource/sign_up
   def new
@@ -19,12 +20,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   def edit
-    super
+    if by_admin_user?(params)
+      self.resource = resource_class.to_adapter.get!(params[:id])
+    else
+      authenticate_scope!
+      super
+    end
   end
 
   # PUT /resource
   def update
-    super
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+
+    resource_updated = update_resource(resource, account_update_params)
+    yield resource if block_given?
+    if resource_updated
+      set_flash_message_for_update(resource, prev_unconfirmed_email)
+      bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
+
+      respond_with resource, location: after_update_path_for(resource)
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
   end
 
   # DELETE /resource
@@ -41,7 +61,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
@@ -67,5 +87,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if !current_user_is_admin?
       sign_in(resource_name, resource)
     end
+  end
+
+  def by_admin_user?(params)
+    params[:id].present? && current_user_is_admin?
+  end
+
+  def current_user_is_admin?
+    user_signed_in? && current_user.admin?
+  end
+
+  def update_resource_without_password(resource, params)
+    resource.update_without_password(params)
   end
 end
