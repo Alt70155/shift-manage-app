@@ -35,7 +35,7 @@ html
         - else
           / li.nav-item= link_to 'アカウント作成', new_user_registration_path, class: 'nav-link'
           / li.nav-item= link_to 'ログイン', new_user_session_path, class: 'nav-link'
-    .container.my-3
+    .container.my-3.w-75
       - if flash.notice.present?
         .alert.alert-success= flash.notice
       = yield

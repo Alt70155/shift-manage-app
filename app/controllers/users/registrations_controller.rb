@@ -5,7 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
   # 以下でdeviseの設定を上書きし、ログイン状態でもサインイン・アップできるようにする
-  # prepend_before_action :require_no_authentication, only: [:cancel]
+  prepend_before_action :require_no_authentication, only: [:cancel]
   # prepend_before_action :authenticate_scope!, only: [:update, :destroy]
 
   # GET /resource/sign_up
