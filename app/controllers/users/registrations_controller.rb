@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :logged_in_admin, only: [:new, :create]
+  before_action :logged_in_admin, only: [:new, :create, :destroy]
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
   # 以下でdeviseの設定を上書きし、ログイン状態でもサインイン・アップできるようにする
@@ -49,7 +49,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # DELETE /resource
   def destroy
-    super
+    user = User.find(params[:id])
+
+    if user.admin?
+      flash[:notice] = '管理者は削除できません。'
+    else
+      user.destroy
+      flash[:notice] = '削除が完了しました。'
+    end
+
+    redirect_to root_url
   end
 
   # GET /resource/cancel
