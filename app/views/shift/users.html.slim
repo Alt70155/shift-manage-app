@@ -5,6 +5,7 @@ table border="1"
     th 名前
     th 出勤可能時間
     th 出勤可能日数
+    th メールアドレス
     th
   - @user_list.each_with_index do |user, i|
     tr
@@ -12,6 +13,7 @@ table border="1"
       td= "#{user.last_name} #{user.first_name}"
       td= "#{l user.available_time_start, format: :short} 〜 #{l user.available_time_end, format: :short}"
       td= "週に#{user.available_days}日"
+      td= user.email
       - if user.admin?
         td 管理者
       - else
