@@ -33,11 +33,9 @@ s_available_days = [4, 5]
   )
 end
 
-# 学生レベルの勤務時間
-start_time_list = ['17:00', '18:00', '19:00']
-end_time_list = ['21:00', '22:00', '23:00']
-g_available_days = [2, 3, 4, 5]
-15.times do |_|
+# 夕勤レベルの勤務時間
+g_available_days = [3, 4, 5]
+8.times do |_|
   last_name = Faker::Name.last_name
   first_name = Faker::Name.first_name
   email = Faker::Internet.email
@@ -47,8 +45,26 @@ g_available_days = [2, 3, 4, 5]
     password: 'password',
     first_name: first_name,
     last_name: last_name,
-    available_time_start: start_time_list.sample,
-    available_time_end: end_time_list.sample,
+    available_time_start: '17:00',
+    available_time_end: '21:00',
+    available_days: g_available_days.sample,
+    confirmed_at: Time.now
+  )
+end
+
+# 夜勤レベル
+8.times do |_|
+  last_name = Faker::Name.last_name
+  first_name = Faker::Name.first_name
+  email = Faker::Internet.email
+
+  User.create!(
+    email: email,
+    password: 'password',
+    first_name: first_name,
+    last_name: last_name,
+    available_time_start: '21:00',
+    available_time_end: '24:00',
     available_days: g_available_days.sample,
     confirmed_at: Time.now # deviseのメール認証を通過させるフィールド
   )
