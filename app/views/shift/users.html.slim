@@ -6,6 +6,7 @@ table border="1"
     th 出勤可能時間
     th 出勤可能日数
     th メールアドレス
+    th 有効化されているか
     th
   - @user_list.each_with_index do |user, i|
     tr
@@ -14,6 +15,10 @@ table border="1"
       td= "#{l user.available_time_start, format: :short} 〜 #{l user.available_time_end, format: :short}"
       td= "週に#{user.available_days}日"
       td= user.email
+      - if user.confirmed?
+        td.text-success 有効
+      - else
+        td.text-danger 無効
       - if user.admin?
         td 管理者
       - else

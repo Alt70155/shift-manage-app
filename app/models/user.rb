@@ -15,7 +15,7 @@ class User < ApplicationRecord
       params.delete(:password)
       params.delete(:password_confirmation) if params[:password_confirmation].blank?
     end
-  
+
     # result = if valid_password?(current_password)
     #   update_attributes(params, *options)
     # else
