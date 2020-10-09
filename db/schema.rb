@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_015403) do
+ActiveRecord::Schema.define(version: 2020_10_09_015355) do
 
   create_table "requests", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(version: 2020_09_14_015403) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id", "date"], name: "index_requests_on_user_id_and_date", unique: true
     t.index ["user_id"], name: "index_requests_on_user_id"
+  end
+
+  create_table "shifts", force: :cascade do |t|
+    t.date "working_days", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_shifts_on_user_id"
   end
 
   create_table "stores", force: :cascade do |t|
@@ -58,5 +66,6 @@ ActiveRecord::Schema.define(version: 2020_09_14_015403) do
   end
 
   add_foreign_key "requests", "users"
+  add_foreign_key "shifts", "users"
   add_foreign_key "stores", "users"
 end
