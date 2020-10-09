@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   root to: 'shift#index'
 
   get 'profile', to: 'shift#profile'
-  get 'users', to: 'shift#users'
+  get 'users/list', to: 'shift#users'
   get 'requests/new', to: 'requests#new'
   post 'requests', to: 'requests#create'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
