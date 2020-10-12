@@ -1,13 +1,16 @@
 - if user_signed_in? && current_user.admin?
   / 管理者ページ
   = render 'admin'
-  - @y.each_with_index do |n, i|
-    p= "#{i+1}日　昼：#{n[0]}　夕方：#{n[1]}　夜：#{n[2]}"
+  / - @y.each_with_index do |n, i|
+  /   p= "#{i+1}日　昼：#{n[0]}　夕方：#{n[1]}　夜：#{n[2]}"
   - @x.each_with_index do |emp_list, i|
     h2= "#{i+1}日"
     ul
     - emp_list.each_with_index do |emp, j|
-      li= "#{j+1}：#{emp.last_name}"
+      - j += 1
+      li= "#{j}：#{emp.last_name}"
+      - if (j % 5).zero?
+        <br>
 
   br
 - elsif user_signed_in?

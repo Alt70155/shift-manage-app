@@ -30,6 +30,7 @@ class ShiftController < ApplicationController
                      .append(evening_employees.sample(emp_per_day_number))
                      .append(midnight_employees.sample(emp_per_day_number))
                      .flatten!
+      
 
       # DB登録用の日付文字列を作成（来月の年と月の文字列を作成）
       working_days = Date.today.next_month.strftime('%Y-%m') + "-#{day}"
@@ -53,6 +54,7 @@ class ShiftController < ApplicationController
         midnight_employees = work_days_management(midnight_employees)
       end
 
+      # テスト用コード
       @y.append([regular_employees.length, evening_employees.length, midnight_employees.length])
     end
   end
@@ -66,12 +68,24 @@ class ShiftController < ApplicationController
 
   private
 
+  def extract_employees(day, employees_list)
+    store = User.find_by(admin: true).store
+    emp_per_day_number = store.emp_per_day_number
+    go_to_work_list = []
+    index_list = []
+
+    # 出勤希望日がある人を
+    employees_list.select { |emp|
+      hope_list = emp.requests.where(possible: true, date: '2020-11-01')
+    }
+  end
+
   def work_days_management(employees_list)
     index_list = []
     # 抽出した従業員の出勤日数を1増やす
     employees_list.each_with_index do |emp, i|
       $worked_counter_list[emp.id] += 1
-  
+
       # 1増やした後の出勤日数が出勤可能日数と同じになった場合、
       # 削除すべき添字をindex_listに記録する
       index_list.append(i) if $worked_counter_list[emp.id] == emp.available_days
