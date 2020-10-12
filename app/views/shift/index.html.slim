@@ -1,9 +1,20 @@
 - if user_signed_in? && current_user.admin?
   / 管理者ページ
   = render 'admin'
+  - next_date = Date.today.next_month
+  - days_in_month = Time.days_in_month(next_date.month, next_date.year)
+  - days_in_month.times do |day|
+    - working_days = Date.today.next_month.strftime('%Y-%m') + "-#{day + 1}"
+    - today_shift_list = @shift_list.where(working_days: working_days)
+    h2= working_days
+    ul
+    - today_shift_list.each do |shift|
+      li= "#{shift.user.last_name} #{shift.user.first_name}"
+
   br
 - elsif user_signed_in?
   / 一般ページ
   = render 'general'
 - else
+  / ログインしていない場合
   h1 トップページ

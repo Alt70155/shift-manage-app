@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :confirmable, :validatable
 
   has_many :requests, dependent: :destroy
+  has_many :shifts,   dependent: :destroy
   has_one :store,     dependent: :destroy
 
   def update_without_password(params, *options)
