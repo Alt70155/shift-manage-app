@@ -1,15 +1,13 @@
 - if user_signed_in? && current_user.admin?
   / 管理者ページ
   = render 'admin'
-  - next_date = Date.today.next_month
-  - days_in_month = Time.days_in_month(next_date.month, next_date.year)
-  - days_in_month.times do |day|
-    - working_days = Date.today.next_month.strftime('%Y-%m') + "-#{day + 1}"
-    - today_shift_list = @shift_list.where(working_days: working_days)
-    h2= working_days
+  - @y.each_with_index do |n, i|
+    p= "#{i+1}日　昼：#{n[0]}　夕方：#{n[1]}　夜：#{n[2]}"
+  - @x.each_with_index do |emp_list, i|
+    h2= "#{i+1}日"
     ul
-    - today_shift_list.each do |shift|
-      li= "#{shift.user.last_name} #{shift.user.first_name}"
+    - emp_list.each_with_index do |emp, j|
+      li= "#{j+1}：#{emp.last_name}"
 
   br
 - elsif user_signed_in?

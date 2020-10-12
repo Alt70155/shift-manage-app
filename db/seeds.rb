@@ -35,7 +35,7 @@ end
 
 # 夕勤レベルの勤務時間
 g_available_days = [3, 4, 5]
-8.times do |_|
+15.times do |_|
   last_name = Faker::Name.last_name
   first_name = Faker::Name.first_name
   email = Faker::Internet.email
@@ -53,7 +53,7 @@ g_available_days = [3, 4, 5]
 end
 
 # 夜勤レベル
-8.times do |_|
+15.times do |_|
   last_name = Faker::Name.last_name
   first_name = Faker::Name.first_name
   email = Faker::Internet.email
@@ -69,3 +69,9 @@ end
     confirmed_at: Time.now # deviseのメール認証を通過させるフィールド
   )
 end
+
+User.first.build_store(emp_per_day_number: 5,
+  business_start_time: '08:00:00',
+  business_end_time: '0:00:00',
+  regular_holiday: 1
+).save
