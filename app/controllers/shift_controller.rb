@@ -12,9 +12,9 @@ class ShiftController < ApplicationController
     evening_time_in = convert_to_utc('17:00:00')
     midnight_time_in = convert_to_utc('21:00:00')
 
-    regular_employees  = User.where(available_time_start: regular_time_in).to_a
-    evening_employees  = User.where(available_time_start: evening_time_in).to_a
-    midnight_employees = User.where(available_time_start: midnight_time_in).to_a
+    regular_employees  = User.where(available_time_start: regular_time_in)
+    evening_employees  = User.where(available_time_start: evening_time_in)
+    midnight_employees = User.where(available_time_start: midnight_time_in)
 
     store = User.find_by(admin: true).store
     emp_per_day_number = store.emp_per_day_number
@@ -24,8 +24,7 @@ class ShiftController < ApplicationController
 
     days_in_next_month.times do |day|
       day += 1
-      # 一日の従業員をランダムに抽出する
-      # random_emp_list = []
+      # 一日の従業員を抽出する
       random_regular_emp_list  = extract_employees(day, regular_employees)
       random_evening_emp_list  = extract_employees(day, evening_employees)
       random_midnight_emp_list = extract_employees(day, midnight_employees)
@@ -34,7 +33,7 @@ class ShiftController < ApplicationController
       working_days = Date.today.next_month.strftime('%Y-%m') + "-#{day}"
 
       # テスト用コード
-      @x.append(random_emp_list)
+      @x.append(random_regular_emp_list + random_evening_emp_list + random_midnight_emp_list)
 
       # random_emp_list.each do |emp|
       #   emp.shifts.create!(working_days: working_days)
@@ -42,9 +41,9 @@ class ShiftController < ApplicationController
 
       # 一週間経ったらリストをリセットする
       if (day % 7).zero?
-        regular_employees  = User.where(available_time_start: regular_time_in).to_a
-        evening_employees  = User.where(available_time_start: evening_time_in).to_a
-        midnight_employees = User.where(available_time_start: midnight_time_in).to_a
+        regular_employees  = User.where(available_time_start: regular_time_in)
+        evening_employees  = User.where(available_time_start: evening_time_in)
+        midnight_employees = User.where(available_time_start: midnight_time_in)
         $weekly_worked_counter_list = [0] * (User.count + 1)
       else
         regular_employees  = work_days_management(regular_employees, random_regular_emp_list)
@@ -55,6 +54,25 @@ class ShiftController < ApplicationController
       # テスト用コード
       @y.append([regular_employees.length, evening_employees.length, midnight_employees.length])
     end
+
+    @temp_list = Array.new(4) { Array.new(User.count + 1, 0) }
+
+    @temp_list.each_with_index do |week_list, i|
+      i *= 7
+
+      7.times do |j|
+        day = i + j
+
+        @x[day].each do |emp|
+          week_list[emp.id] += 1
+        end
+      end
+    end
+    # 7.times do |i|
+    #   @x[i].each do |emp|
+    #     @temp_list[0][emp.id] += 1
+    #   end
+    # end
   end
 
   def profile
