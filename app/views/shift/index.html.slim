@@ -1,26 +1,6 @@
 - if user_signed_in? && current_user.admin?
   / 管理者ページ
   = render 'admin'
-  / - @y.each_with_index do |n, i|
-  /   p= "#{i+1}日　昼：#{n[0]}　夕方：#{n[1]}　夜：#{n[2]}"
-  - @x.each_with_index do |emp_list, i|
-    h2= "#{i+1}日"
-    ul
-    - emp_list.each_with_index do |emp, j|
-      - j += 1
-      li= "#{j}：#{emp.last_name} #{emp.first_name}"
-      - if (j % 5).zero?
-        <br>
-  
-  - @temp_list.each do |week_list|
-    - week_list.shift
-    - week_list.zip(User.all) do |list|
-      - emp = list[1]
-      p= "#{emp.last_name}　出勤回数：#{list[0]}　出勤可能回数：#{emp.available_days}"
-    br
-    br
-    hr
-
   br
 - elsif user_signed_in?
   / 一般ページ
