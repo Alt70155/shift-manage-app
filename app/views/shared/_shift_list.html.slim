@@ -1,5 +1,7 @@
 h2 来月のシフト表（#{@next_month.strftime('%Y年%m月')}）
 
-- @grouped_next_month_shift_list.each do |shift_list|
+- @next_month_shift_list.each do |shift_list|
   h2= shift_list.first.working_days
+  ul
   - shift_list.each do |shift|
+    li= shift.user.last_name
