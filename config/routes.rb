@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   root to: 'shift#index'
 
+  get 'next_month_shift', to: 'shift#next_month_shift'
   get 'profile', to: 'shift#profile'
   get 'users/list', to: 'shift#users'
   get 'requests/new', to: 'requests#new'

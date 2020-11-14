@@ -1,5 +1,7 @@
 # Fakerをコンソールで試す場合はテスト環境で試す
 # rails c -e test
+# DBリセット
+# rais db:reset
 
 # 管理者
 User.create!(

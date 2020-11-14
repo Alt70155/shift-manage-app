@@ -8,10 +8,12 @@ class ShiftController < ApplicationController
     # 今月のシフト
     @this_month = Date.today
     @this_month_shift_list = Shift.create_month_list(@this_month)
+  end
+
+  def next_month_shift
     # 来月のシフト
     @next_month = Date.today.next_month
     @next_month_shift_list = Shift.create_month_list(@next_month)
-
   end
 
   def profile

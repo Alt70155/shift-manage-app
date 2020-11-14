@@ -1,3 +1,6 @@
+# 実行コマンド
+# bundle exec rake cron:shift
+
 namespace :cron do
   desc 'シフト作成処理'
   task :shift => :environment do

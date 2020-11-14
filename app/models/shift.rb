@@ -12,7 +12,7 @@ class Shift < ApplicationRecord
 
     days_shift_list.map do |list|
       list.sort do |a, b|
-        a.user.available_time_start <=> b.user.available_time_start
+        a.user.available_time_start.hour <=> b.user.available_time_start.hour
       end
     end
   end
